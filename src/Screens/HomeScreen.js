@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -253,13 +254,16 @@ const HomeScreen = ({ navigation }) => {
             <ScrollView style={{ flexGrow: 0 }}>
               {approvedEvents.map((item) => {
                 return (
-                  <View
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("ApprovedEventDetails", item)
+                    }
                     key={item.id}
                     style={{
                       flexDirection: "row",
                       marginTop: 1,
                       backgroundColor: "white",
-                      margin: 10,
+                      margin: 5,
                       padding: 10,
                       borderRadius: 10,
                       elevation: 10,
@@ -283,7 +287,7 @@ const HomeScreen = ({ navigation }) => {
                         {item.eventName}
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 );
               })}
             </ScrollView>
