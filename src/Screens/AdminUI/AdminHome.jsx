@@ -4,13 +4,62 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-  TextInput,
   ScrollView,
+  Image,
+  Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Card } from "react-native-paper";
+import { useState } from "react";
 
 const AdminHome = () => {
+  const [isAccepted, setIsAccepted] = useState(false);
+
+  const width = Dimensions.get("window").width;
+  const eventData = [
+    {
+      id: 1,
+      eventName: "A Virtual Tour of the University",
+      dayDateTime: "10TH MARCH-SAT-10:00AM",
+      status: "Accepted",
+      photo:
+        "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    {
+      id: 2,
+      eventName: "Campus Engagement Program",
+      dayDateTime: "20TH MARCH-MON-12:00PM",
+      status: "Rejected",
+      photo:
+        "https://images.unsplash.com/photo-1526328828355-69b01701ca6a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+    },
+    {
+      id: 3,
+      eventName: "Pre Placement Talk",
+      dayDateTime: "21ST MARCH-TUE-6:15PM",
+      status: "Pending",
+      photo:
+        "https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+    },
+    {
+      id: 4,
+      eventName: "Machine Learning Workshop",
+      dayDateTime: "25TH MARCH-FRI-2:00PM",
+      status: "Rejected",
+      photo:
+        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=820&q=80",
+    },
+    {
+      id: 5,
+      eventName: "Hands on with Flutter",
+      dayDateTime: "10TH APRIL-WED-3:00PM",
+      status: "Rejected",
+      photo:
+        "https://images.unsplash.com/photo-1617040619263-41c5a9ca7521?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+  ];
+
   const cardData = [
     {
       id: 1,
@@ -40,113 +89,173 @@ const AdminHome = () => {
         "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     },
   ];
+
   return (
     <SafeAreaView>
-      <View style={styles.mainHeader}>
-        <StatusBar style="light" backgroundColor="#4A43EC" />
-        <View style={styles.header}>
-          <Ionicons
-            onPress={() => navigation.openDrawer()}
-            style={styles.hamIcon}
-            name="reorder-three-outline"
-            size={32}
-            color="white"
-          />
-          <Text style={{ color: "white", marginTop: 15 }}>
-            Current Location
-          </Text>
-          <Ionicons
-            style={styles.notiIcon}
-            color="white"
-            size={32}
-            name="notifications-outline"
-          />
-        </View>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: -15,
-          }}
-        >
-          <Text style={{ color: "white" }}>SRM University,Chennai</Text>
-        </View>
-
-        <View style={{ marginTop: 10, flexDirection: "row" }}>
-          <Ionicons
-            style={styles.notiIcon}
-            color="white"
-            size={32}
-            name="search-outline"
-          />
-          <Text
+      <ScrollView>
+        <View style={styles.mainHeader}>
+          <StatusBar style="light" backgroundColor="#4A43EC" />
+          <View style={styles.header}>
+            <Ionicons
+              onPress={() => navigation.openDrawer()}
+              style={styles.hamIcon}
+              name="reorder-three-outline"
+              size={32}
+              color="white"
+            />
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
+              EventZeo
+            </Text>
+            <Ionicons
+              style={styles.notiIcon}
+              color="white"
+              size={25}
+              name="notifications-outline"
+            />
+          </View>
+          {/* <View
             style={{
-              marginTop: 10,
-              color: "grey",
-              fontWeight: "800",
-              fontSize: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: -15,
             }}
           >
-            |
-          </Text>
-          <TextInput
-            style={{
-              left: 10,
-              color: "white",
-              fontSize: 16,
-            }}
-            placeholder="Search..."
-            cursorColor={"white"}
-            placeholderTextColor="#E4E4E4"
-          />
-        </View>
-      </View>
-      <View style={styles.ongoingEventsBanner}>
-        <Text style={styles.ongoingEventsHeading}>Ongoing events</Text>
-        <Text style={styles.seeAll}>See all</Text>
-      </View>
+            <Text style={{ color: "white" }}>SRM University,Chennai</Text>
+          </View> */}
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {cardData.map((item) => {
-          return (
-            <Card
-              onPress={() =>
-                handleCardChangeById(
-                  item.title,
-                  item.id,
-                  item.date,
-                  item.location,
-                  item.photo
-                )
-              }
-              key={item.id}
-              mode="elevated"
-              style={{ width: 320, backgroundColor: "white", margin: 10 }}
+          {/* <View style={{ marginTop: 10, flexDirection: "row" }}>
+            <Ionicons
+              style={styles.notiIcon}
+              color="white"
+              size={32}
+              name="search-outline"
+            />
+            <Text
+              style={{
+                marginTop: 10,
+                color: "grey",
+                fontWeight: "800",
+                fontSize: 20,
+              }}
             >
-              <Card.Cover source={{ uri: item.photo }} />
-              <Card.Content>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Ionicons
-                    color="black"
-                    size={32}
-                    name="people-circle-outline"
-                  />
-                  <Text style={{ marginTop: 5 }}>{item.going}</Text>
+              |
+            </Text>
+            <TextInput
+              style={{
+                left: 10,
+                color: "white",
+                fontSize: 16,
+              }}
+              placeholder="Search..."
+              cursorColor={"white"}
+              placeholderTextColor="#E4E4E4"
+            />
+          </View> */}
+        </View>
+        <View style={styles.ongoingEventsBanner}>
+          <Text style={styles.ongoingEventsHeading}>Ongoing events</Text>
+          <Text style={styles.seeAll}>See all</Text>
+        </View>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {cardData.map((item) => {
+            return (
+              <Card
+                onPress={() =>
+                  handleCardChangeById(
+                    item.title,
+                    item.id,
+                    item.date,
+                    item.location,
+                    item.photo
+                  )
+                }
+                key={item.id}
+                mode="elevated"
+                style={{ width: 320, backgroundColor: "white", margin: 10 }}
+              >
+                <Card.Cover source={{ uri: item.photo }} />
+                <Card.Content>
+                  <Text style={styles.cardTitle}>{item.title}</Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Ionicons
+                      color="black"
+                      size={32}
+                      name="people-circle-outline"
+                    />
+                    <Text style={{ marginTop: 5 }}>{item.going}</Text>
+                  </View>
+                </Card.Content>
+                <Card.Content style={{ marginTop: 10 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Ionicons
+                      style={{ marginTop: 5 }}
+                      color="black"
+                      size={20}
+                      name="location-outline"
+                    />
+                    <Text style={{ marginTop: 5 }}>{item.location}</Text>
+                  </View>
+                </Card.Content>
+              </Card>
+            );
+          })}
+        </ScrollView>
+
+        <View style={styles.ongoingEventsBanner}>
+          <Text style={styles.ongoingEventsHeading}>Awaiting approval</Text>
+          <Text style={styles.seeAll}>See all</Text>
+        </View>
+
+        {eventData.map((item, id) => {
+          return (
+            <View key={id} style={styles.individualEventCard}>
+              <Image
+                source={{ uri: item.photo }}
+                style={{ width: 100, height: 120, borderRadius: 7 }}
+              />
+              <View style={{ padding: 10 }}>
+                <Text style={{ color: "#6072ff", fontWeight: "bold" }}>
+                  {item.dayDateTime}
+                </Text>
+                <Text
+                  style={{
+                    width: width / 1.5,
+                    marginTop: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item.eventName}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginTop: 15,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={styles.approveButton}
+                    onPress={() => {
+                      setIsAccepted(true);
+                    }}
+                  >
+                    <View>
+                      <Text style={styles.approveText}>Approve</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.rejectButton}
+                    onPress={() => {
+                      setIsAccepted(false);
+                    }}
+                  >
+                    <View>
+                      <Text style={styles.approveText}>Reject</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </Card.Content>
-              <Card.Content style={{ marginTop: 10 }}>
-                <View style={{ flexDirection: "row" }}>
-                  <Ionicons
-                    style={{ marginTop: 5 }}
-                    color="black"
-                    size={20}
-                    name="location-outline"
-                  />
-                  <Text style={{ marginTop: 5 }}>{item.location}</Text>
-                </View>
-              </Card.Content>
-            </Card>
+              </View>
+            </View>
           );
         })}
       </ScrollView>
@@ -159,10 +268,10 @@ const styles = StyleSheet.create({
   mainHeader: {
     // May change - For margin around status bar
     marginTop: 25,
-    paddingBottom: 10,
+    paddingVertical: 10,
     backgroundColor: "#121A72",
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 7,
+    borderBottomRightRadius: 7,
   },
   hamIcon: {
     padding: 10,
@@ -173,14 +282,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
-  },
-  categories: {
-    width: 130,
-    backgroundColor: "#F0635A",
-    padding: 15,
-    borderRadius: 35,
-    marginLeft: 18,
+    alignItems: "center",
+    // padding: 10,
   },
   catText: {
     textAlign: "center",
@@ -208,6 +311,35 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   seeAll: {},
+  individualEventCard: {
+    flexDirection: "row",
+    marginBottom: 7,
+    marginHorizontal: 10,
+    backgroundColor: "white",
+    padding: 7,
+    borderRadius: 7,
+    elevation: 2,
+  },
+  approveButton: {
+    backgroundColor: "#00c308",
+    borderRadius: 7,
+    padding: 7,
+    width: 100,
+    marginRight: 10,
+  },
+  rejectButton: {
+    backgroundColor: "#c30010",
+    borderRadius: 7,
+    padding: 5,
+    width: 100,
+    marginRight: 10,
+  },
+  approveText: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
 });
 
 export default AdminHome;
