@@ -9,6 +9,7 @@ import AllEvents from "./src/Screens/AllEvents";
 import CreateEvent from "./src/Screens/CreateEvent";
 import AdminHome from "./src/Screens/AdminUI/AdminHome";
 import IndividualEvent from "./src/Screens/AdminUI/IndividualEvents";
+import ApprovedEvents from "./src/Screens/ApprovedEvents";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,6 +111,11 @@ export default function App() {
           <Drawer.Screen
             name="IndividualEventDetails"
             component={IndividualEvent}
+            options={{ headerShown: null }}
+          />
+          <Drawer.Screen
+            name="ApprovedEventDetails"
+            component={ApprovedEvents}
             options={{ headerShown: null }}
           />
         </Drawer.Navigator>
