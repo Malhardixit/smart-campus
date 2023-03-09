@@ -8,6 +8,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import AllEvents from "./src/Screens/AllEvents";
 import CreateEvent from "./src/Screens/CreateEvent";
 import AdminHome from "./src/Screens/AdminUI/AdminHome";
+import IndividualEvent from "./src/Screens/AdminUI/IndividualEvent";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -104,6 +105,11 @@ export default function App() {
           <Drawer.Screen
             name="EventDetails"
             component={EventDetails}
+            options={{ headerShown: null }}
+          />
+          <Drawer.Screen
+            name="IndividualEventDetails"
+            component={IndividualEvent}
             options={{ headerShown: null }}
           />
           {/* <Drawer.Screen

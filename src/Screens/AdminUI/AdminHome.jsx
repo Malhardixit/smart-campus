@@ -12,8 +12,9 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Card } from "react-native-paper";
 import { useState } from "react";
+import IndividualEvent from "./IndividualEvent";
 
-const AdminHome = () => {
+const AdminHome = ({ navigation }) => {
   const [isAccepted, setIsAccepted] = useState(false);
 
   const width = Dimensions.get("window").width;
@@ -113,44 +114,6 @@ const AdminHome = () => {
               name="notifications-outline"
             />
           </View>
-          {/* <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: -15,
-            }}
-          >
-            <Text style={{ color: "white" }}>SRM University,Chennai</Text>
-          </View> */}
-
-          {/* <View style={{ marginTop: 10, flexDirection: "row" }}>
-            <Ionicons
-              style={styles.notiIcon}
-              color="white"
-              size={32}
-              name="search-outline"
-            />
-            <Text
-              style={{
-                marginTop: 10,
-                color: "grey",
-                fontWeight: "800",
-                fontSize: 20,
-              }}
-            >
-              |
-            </Text>
-            <TextInput
-              style={{
-                left: 10,
-                color: "white",
-                fontSize: 16,
-              }}
-              placeholder="Search..."
-              cursorColor={"white"}
-              placeholderTextColor="#E4E4E4"
-            />
-          </View> */}
         </View>
         <View style={styles.ongoingEventsBanner}>
           <Text style={styles.ongoingEventsHeading}>Ongoing events</Text>
@@ -209,53 +172,57 @@ const AdminHome = () => {
 
         {eventData.map((item, id) => {
           return (
-            <View key={id} style={styles.individualEventCard}>
-              <Image
-                source={{ uri: item.photo }}
-                style={{ width: 100, height: 120, borderRadius: 7 }}
-              />
-              <View style={{ padding: 10 }}>
-                <Text style={{ color: "#6072ff", fontWeight: "bold" }}>
-                  {item.dayDateTime}
-                </Text>
-                <Text
-                  style={{
-                    width: width / 1.5,
-                    marginTop: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  {item.eventName}
-                </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: 15,
-                  }}
-                >
-                  <TouchableOpacity
-                    style={styles.approveButton}
-                    onPress={() => {
-                      setIsAccepted(true);
+            <TouchableOpacity
+              onPress={() => navigation.navigate("IndividualEventDetails")}
+            >
+              <View key={id} style={styles.individualEventCard}>
+                <Image
+                  source={{ uri: item.photo }}
+                  style={{ width: 100, height: 120, borderRadius: 7 }}
+                />
+                <View style={{ padding: 10 }}>
+                  <Text style={{ color: "#6072ff", fontWeight: "bold" }}>
+                    {item.dayDateTime}
+                  </Text>
+                  <Text
+                    style={{
+                      width: width / 1.5,
+                      marginTop: 10,
+                      fontWeight: "bold",
                     }}
                   >
-                    <View>
-                      <Text style={styles.approveText}>Approve</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.rejectButton}
-                    onPress={() => {
-                      setIsAccepted(false);
+                    {item.eventName}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: 15,
                     }}
                   >
-                    <View>
-                      <Text style={styles.approveText}>Reject</Text>
-                    </View>
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.approveButton}
+                      onPress={() => {
+                        setIsAccepted(true);
+                      }}
+                    >
+                      <View>
+                        <Text style={styles.approveText}>Approve</Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.rejectButton}
+                      onPress={() => {
+                        setIsAccepted(false);
+                      }}
+                    >
+                      <View>
+                        <Text style={styles.approveText}>Reject</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
       </ScrollView>
