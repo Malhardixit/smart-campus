@@ -14,6 +14,7 @@ import { Button, TextInput } from "react-native-paper";
 import { RadioButton } from "react-native-paper";
 import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Dropdown } from "react-native-element-dropdown";
 
 const width = Dimensions.get("window").width;
 
@@ -64,6 +65,11 @@ const CreateEvent = () => {
     showMode("time");
   };
 
+  const data = [
+    { label: "Tech", value: "Tech" },
+    { label: "Cultural", value: "Cultural" },
+  ];
+
   const body = {
     eventName: orgOptions.eventName,
     orgName: orgOptions.orgName,
@@ -80,7 +86,6 @@ const CreateEvent = () => {
     hallBooking: hallBooking,
     volunteers: volunteers,
   };
-  console.log({ body: body });
 
   const handleCreate = () => {
     axios
@@ -185,7 +190,38 @@ const CreateEvent = () => {
             />
           </View>
           <View style={{ padding: 10 }}>
-            <TextInput
+            <Dropdown
+              renderLeftIcon={() => {
+                return <Ionicons name="apps" size={26} color="grey" />;
+              }}
+              dropdownPosition="bottom"
+              selectedTextStyle={{
+                color: "black",
+                fontSize: 14,
+                paddingLeft: 10,
+              }}
+              style={{
+                backgroundColor: "white",
+                padding: 7,
+                borderRadius: 5,
+                width: width / 2.2,
+                borderColor: "#E4DFDF",
+                borderWidth: 1,
+                top: 5,
+              }}
+              placeholder="Event Category"
+              placeholderStyle={{ color: "grey", fontSize: 14, marginLeft: 10 }}
+              data={data}
+              labelField="label"
+              valueField="value"
+              value={orgOptions.eventCat}
+              onChange={(item) => {
+                setOrgOptions({ ...orgOptions, eventCat: item.value });
+                console.log(item);
+              }}
+            />
+
+            {/* <TextInput
               selectionColor="#121A72"
               left={
                 <TextInput.Icon
@@ -209,7 +245,7 @@ const CreateEvent = () => {
               onChangeText={(text) =>
                 setOrgOptions({ ...orgOptions, eventCat: text })
               }
-            />
+            /> */}
           </View>
         </View>
 
