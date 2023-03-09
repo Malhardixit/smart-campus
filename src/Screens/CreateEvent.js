@@ -5,12 +5,13 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Button, TextInput } from "react-native-paper";
+import { Button, Snackbar, TextInput } from "react-native-paper";
 import { RadioButton } from "react-native-paper";
 import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -93,6 +94,11 @@ const CreateEvent = () => {
 
       .then((res) => {
         console.log(res.data);
+        ToastAndroid.showWithGravity(
+          "Event Created Successfully",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
       })
       .catch((err) => {
         console.log(err);

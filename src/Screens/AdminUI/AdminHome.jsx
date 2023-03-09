@@ -11,11 +11,13 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Card } from "react-native-paper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import IndividualEvent from "./IndividualEvent";
+import axios from "axios";
 
 const AdminHome = ({ navigation }) => {
   const [isAccepted, setIsAccepted] = useState(false);
+  const [data, setData] = useState([]);
 
   const width = Dimensions.get("window").width;
   const eventData = [
@@ -102,6 +104,37 @@ const AdminHome = ({ navigation }) => {
     },
   ];
 
+  useEffect(() => {
+    axios
+      .get(
+        "https://smartcampus-production.up.railway.app/pendingApprovals?adminId=admin1"
+      )
+      .then((res) => {
+        console.log(res.data.pending);
+        setData(res.data.pending);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }, []);
+
+  const handleApprove = (bookingId) => {
+    const body = {
+      bookingId: bookingId,
+    };
+    console.log({ body: body });
+    axios
+      .post("https://smartcampus-production.up.railway.app/approve", body)
+      .then((res) => {
+        console.log(res.data.Message);
+        alert(res.data.Message);
+        setData(data.filter((item) => item.bookingId !== bookingId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -180,21 +213,35 @@ const AdminHome = ({ navigation }) => {
           <Text style={styles.seeAll}>See all</Text>
         </View>
 
-        {eventData.map((item, id) => {
+        {data.map((item, id) => {
+          console.log("eventName", item.orgID);
           return (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("IndividualEventDetails", item)
+                navigation.navigate("IndividualEventDetails", {
+                  eventName: item.eventName,
+                  startDate: item.startDate,
+                  endDate: item.endDate,
+                  startTime: item.startTime,
+                  endTime: item.endTime,
+                  orgID: item.orgID,
+                  eventDesc: item.eventDesc,
+                  eventCat: item.eventCat,
+                  volunteersReq: item.volunteersReq,
+                  refreshments: item.refreshments,
+                })
               }
             >
               <View key={id} style={styles.individualEventCard}>
                 <Image
-                  source={{ uri: item.photo }}
+                  source={{
+                    uri: "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+                  }}
                   style={{ width: 100, height: 120, borderRadius: 7 }}
                 />
                 <View style={{ padding: 10 }}>
                   <Text style={{ color: "#6072ff", fontWeight: "bold" }}>
-                    {item.dayDateTime}
+                    {item.startDate}-{item.startTime}
                   </Text>
                   <Text
                     style={{
@@ -215,6 +262,7 @@ const AdminHome = ({ navigation }) => {
                       style={styles.approveButton}
                       onPress={() => {
                         setIsAccepted(true);
+                        handleApprove(item.bookingId);
                       }}
                     >
                       <View>

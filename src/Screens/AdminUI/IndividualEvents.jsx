@@ -10,18 +10,23 @@ import {
 
 function IndividualEvent({ navigation, route }) {
   const {
-    dayDateTime,
     eventName,
-    eventDescription,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+    orgID,
+    eventDesc,
+    eventCat,
     photo,
-    organizedBy,
-    category,
     budgetReport,
-    volunteerRequired,
+    volunteersReq,
     venueRequired,
-    refreshmentsRequired,
+    refreshments,
   } = route.params;
   const [isAccepted, setIsAccepted] = useState(false);
+
+  console.log({ eventNameFromIndi: startTime });
 
   return (
     <ScrollView>
@@ -33,22 +38,22 @@ function IndividualEvent({ navigation, route }) {
       />
       <View style={styles.contentBox}>
         <Text style={styles.eventName}>{eventName}</Text>
-        <Text style={styles.eventDescription}>{eventDescription}</Text>
+        <Text style={styles.eventDescription}>{eventDesc || "- NA - "}</Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Date : </Text>
-          {dayDateTime || "- NA - "}
+          {startDate || "- NA - "} - {endDate || "- NA - "}
         </Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Time : </Text>
-          {dayDateTime || "- NA - "}
+          {startTime || "- NA - "} - {endTime || "- NA - "}
         </Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Organised by : </Text>
-          {organizedBy || "- NA - "}
+          {orgID || "- NA - "}
         </Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Category : </Text>
-          {category || "- NA - "}
+          {eventCat || "- NA - "}
         </Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Budget report : </Text>
@@ -56,15 +61,15 @@ function IndividualEvent({ navigation, route }) {
         </Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Volunteer required : </Text>
-          {volunteerRequired || "- NA - "}
+          {volunteersReq || "- NA - "}
         </Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Venue required : </Text>
-          {venueRequired || "- NA - "}
+          {"Not yet confirmed"}
         </Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Refreshments : </Text>
-          {refreshmentsRequired || "- NA - "}
+          {refreshments === "yesRefreshments" ? "Yes" : "No" || "- NA - "}
         </Text>
       </View>
       <View
