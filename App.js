@@ -7,6 +7,8 @@ import EventDetails from "./src/Screens/EventDetails";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AllEvents from "./src/Screens/AllEvents";
 import CreateEvent from "./src/Screens/CreateEvent";
+import AdminHome from "./src/Screens/AdminUI/AdminHome";
+import IndividualEvent from "./src/Screens/AdminUI/IndividualEvents";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -69,6 +71,20 @@ function BottomTabs() {
         name="AllEvents"
         component={AllEvents}
       />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, focused }) => {
+            return focused ? (
+              <Ionicons name="calendar" color={color} size={26} />
+            ) : (
+              <Ionicons name="calendar-outline" color={color} size={26} />
+            );
+          },
+          tabBarLabel: () => <Text style={{ fontSize: 10 }}>Admin UI</Text>,
+        }}
+        name="AdminHome"
+        component={AdminHome}
+      />
     </Tab.Navigator>
   );
 }
@@ -89,6 +105,11 @@ export default function App() {
           <Drawer.Screen
             name="EventDetails"
             component={EventDetails}
+            options={{ headerShown: null }}
+          />
+          <Drawer.Screen
+            name="IndividualEventDetails"
+            component={IndividualEvent}
             options={{ headerShown: null }}
           />
         </Drawer.Navigator>
