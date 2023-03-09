@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Card } from "react-native-paper";
-
+import { Button, Card } from "react-native-paper";
+import DateTimePicker from "@react-native-community/datetimepicker";
 const HomeScreen = ({ navigation }) => {
   const catText = [
     {
