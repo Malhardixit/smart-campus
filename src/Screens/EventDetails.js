@@ -7,7 +7,7 @@ import { Button } from "react-native-paper";
 
 const EventDetails = ({
   route: {
-    params: { name, date, id, loc },
+    params: { name, date, id, loc, pic },
   },
 }) => {
   const width = Dimensions.get("window").width;
@@ -19,7 +19,7 @@ const EventDetails = ({
     <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
       <Image
         style={{ height: height / 2.5, width: width }}
-        source={require("../../assets/background.png")}
+        source={{ uri: pic }}
       />
       <View style={{ position: "absolute", top: 50, left: 20 }}>
         <StatusBar style="light" backgroundColor="transparent" />
@@ -157,7 +157,7 @@ const EventDetails = ({
         style={{
           margin: 20,
           padding: 10,
-          backgroundColor: "#3D56F0",
+          backgroundColor: "#121A72",
           alignSelf: "center",
         }}
         icon={({ size, color }) => (

@@ -31,6 +31,8 @@ const HomeScreen = ({ navigation }) => {
       going: "+20 Going",
       location: "Mini Hall 2,Tp Ganesham Auditorium",
       date: "10 Mar,2023",
+      photo:
+        "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     },
     {
       id: 2,
@@ -38,6 +40,8 @@ const HomeScreen = ({ navigation }) => {
       going: "+50 Going",
       location: "Mini Hall 1,Tp Ganesham Auditorium",
       date: "15 Mar,2023",
+      photo:
+        "https://images.unsplash.com/photo-1617040619263-41c5a9ca7521?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     },
     {
       id: 3,
@@ -45,15 +49,18 @@ const HomeScreen = ({ navigation }) => {
       going: "+100 Going",
       location: "TechPark 404/405",
       date: "20 Mar,2023",
+      photo:
+        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     },
   ];
 
-  const handleCardChangeById = (name, id, date, loc) => {
+  const handleCardChangeById = (name, id, date, loc, pic) => {
     navigation.navigate("EventDetails", {
       name,
       id,
       date,
       loc,
+      pic,
     });
   };
 
@@ -107,7 +114,11 @@ const HomeScreen = ({ navigation }) => {
             |
           </Text>
           <TextInput
-            style={{ left: 10, color: "white", fontSize: 16 }}
+            style={{
+              left: 10,
+              color: "white",
+              fontSize: 16,
+            }}
             placeholder="Search..."
             cursorColor={"white"}
             placeholderTextColor="#E4E4E4"
@@ -129,8 +140,10 @@ const HomeScreen = ({ navigation }) => {
           })}
         </ScrollView>
       </View>
-      <View style={{ padding: 10 }}>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>Upcoming Events</Text>
+      <View style={{ padding: 10, top: 50 }}>
+        <Text style={{ fontSize: 18, fontWeight: "600", left: 10 }}>
+          Upcoming Events
+        </Text>
         <View
           style={{
             flexDirection: "row",
@@ -145,14 +158,15 @@ const HomeScreen = ({ navigation }) => {
                       item.title,
                       item.id,
                       item.date,
-                      item.location
+                      item.location,
+                      item.photo
                     )
                   }
                   key={item.id}
                   mode="elevated"
                   style={{ width: 320, backgroundColor: "white", margin: 10 }}
                 >
-                  <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
+                  <Card.Cover source={{ uri: item.photo }} />
                   <Card.Content>
                     <Text style={styles.cardTitle}>{item.title}</Text>
                     <View style={{ flexDirection: "row" }}>
@@ -188,10 +202,11 @@ const HomeScreen = ({ navigation }) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  // 4A43EC
   mainHeader: {
     margin: "auto",
     height: 180,
-    backgroundColor: "#4A43EC",
+    backgroundColor: "#121A72",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
@@ -211,7 +226,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0635A",
     padding: 15,
     borderRadius: 35,
-    marginLeft: 25,
+    marginLeft: 18,
   },
   catText: {
     textAlign: "center",
@@ -219,7 +234,7 @@ const styles = StyleSheet.create({
   },
   catWrapper: {
     flexDirection: "row",
-    top: -20,
+    top: 20,
   },
   cardTitle: {
     padding: 10,
