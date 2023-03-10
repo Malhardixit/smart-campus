@@ -5,15 +5,17 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Button, TextInput } from "react-native-paper";
+import { Button, Snackbar, TextInput } from "react-native-paper";
 import { RadioButton } from "react-native-paper";
 import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Dropdown } from "react-native-element-dropdown";
 
 const width = Dimensions.get("window").width;
 
@@ -64,6 +66,11 @@ const CreateEvent = () => {
     showMode("time");
   };
 
+  const data = [
+    { label: "Tech", value: "Tech" },
+    { label: "Cultural", value: "Cultural" },
+  ];
+
   const body = {
     eventName: orgOptions.eventName,
     orgName: orgOptions.orgName,
@@ -80,7 +87,6 @@ const CreateEvent = () => {
     hallBooking: hallBooking,
     volunteers: volunteers,
   };
-  console.log({ body: body });
 
   const handleCreate = () => {
     axios
@@ -88,6 +94,11 @@ const CreateEvent = () => {
 
       .then((res) => {
         console.log(res.data);
+        ToastAndroid.showWithGravity(
+          "Event Created Successfully",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -185,30 +196,35 @@ const CreateEvent = () => {
             />
           </View>
           <View style={{ padding: 10 }}>
-            <TextInput
-              selectionColor="#121A72"
-              left={
-                <TextInput.Icon
-                  style={{ left: 3, top: 1 }}
-                  icon={"shape-outline"}
-                  iconColor="grey"
-                  size={25}
-                />
-              }
-              underlineColor="#121A72"
-              activeOutlineColor="#121A72"
-              outlineColor="#E4DFDF"
+            <Dropdown
+              renderLeftIcon={() => {
+                return <Ionicons name="apps" size={26} color="grey" />;
+              }}
+              dropdownPosition="bottom"
+              selectedTextStyle={{
+                color: "black",
+                fontSize: 14,
+                paddingLeft: 10,
+              }}
               style={{
                 backgroundColor: "white",
-                borderRadius: 12,
+                padding: 7,
+                borderRadius: 5,
                 width: width / 2.2,
+                borderColor: "#E4DFDF",
+                borderWidth: 1,
+                top: 5,
               }}
-              mode="outlined"
-              label="Event Category"
+              placeholder="Event Category"
+              placeholderStyle={{ color: "grey", fontSize: 14, marginLeft: 10 }}
+              data={data}
+              labelField="label"
+              valueField="value"
               value={orgOptions.eventCat}
-              onChangeText={(text) =>
-                setOrgOptions({ ...orgOptions, eventCat: text })
-              }
+              onChange={(item) => {
+                setOrgOptions({ ...orgOptions, eventCat: item.value });
+                console.log(item);
+              }}
             />
           </View>
         </View>
@@ -300,33 +316,6 @@ const CreateEvent = () => {
               </View>
             </View>
           </TouchableOpacity>
-          {/* <View style={{ padding: 10 }}>
-            <TextInput
-              selectionColor="#121A72"
-              left={
-                <TextInput.Icon
-                  style={{ left: 3, top: 1 }}
-                  icon={"calendar-blank"}
-                  iconColor="grey"
-                  size={25}
-                />
-              }
-              underlineColor="#121A72"
-              activeOutlineColor="#121A72"
-              outlineColor="#E4DFDF"
-              style={{
-                backgroundColor: "white",
-                borderRadius: 12,
-                width: width / 2.2,
-              }}
-              mode="outlined"
-              label="End Date"
-              value={orgOptions.endDate}
-              onChangeText={(text) =>
-                setOrgOptions({ ...orgOptions, endDate: text })
-              }
-            />
-          </View> */}
         </View>
 
         {/* Time */}
@@ -392,7 +381,7 @@ const CreateEvent = () => {
             left={
               <TextInput.Icon
                 style={{ left: 3, top: 1 }}
-                icon={"account"}
+                icon={"map-marker"}
                 iconColor="grey"
                 size={25}
               />
@@ -403,6 +392,29 @@ const CreateEvent = () => {
             style={{ backgroundColor: "white", borderRadius: 12 }}
             mode="outlined"
             label="Target Audience"
+            value={orgOptions.targAud}
+            onChangeText={(text) =>
+              setOrgOptions({ ...orgOptions, targAud: text })
+            }
+          />
+        </View>
+        <View style={{ padding: 10 }}>
+          <TextInput
+            selectionColor="#121A72"
+            left={
+              <TextInput.Icon
+                style={{ left: 3, top: 1 }}
+                icon={"account"}
+                iconColor="grey"
+                size={25}
+              />
+            }
+            underlineColor="#121A72"
+            activeOutlineColor="#121A72"
+            outlineColor="#E4DFDF"
+            style={{ backgroundColor: "white", borderRadius: 12 }}
+            mode="outlined"
+            label="Location"
             value={orgOptions.targAud}
             onChangeText={(text) =>
               setOrgOptions({ ...orgOptions, targAud: text })
