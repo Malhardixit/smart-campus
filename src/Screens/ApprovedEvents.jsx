@@ -8,9 +8,11 @@ import {
   View,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useState } from "react";
 
 function IndividualEvent({ navigation, route }) {
   const { dayDateTime, eventName, photo } = route.params;
+  const [selected, setselected] = useState("");
 
   return (
     <ScrollView>
@@ -96,6 +98,132 @@ function IndividualEvent({ navigation, route }) {
             }}
             placeholder="Mail content"
           ></TextInput>
+        </View>
+        <Text style={styles.details}>
+          <Text style={styles.detailsHeading}>Choose venue : </Text>
+        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            onPress={() => {
+              setselected("TP 405");
+            }}
+          >
+            <View
+              style={{
+                borderWidth: selected === "TP 405" ? 0 : 1,
+                backgroundColor: selected === "TP 405" ? "#121A72" : "white",
+                marginRight: 5,
+                borderColor: "grey",
+                padding: 7,
+                width: 125,
+                borderRadius: 7,
+                borderStyle: "dashed",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  color: selected === "TP 405" ? "white" : "grey",
+                }}
+              >
+                TP 405
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setselected("Hippocrates hall");
+            }}
+          >
+            <View
+              style={{
+                borderWidth: selected === "Hippocrates hall" ? 0 : 1,
+                backgroundColor:
+                  selected === "Hippocrates hall" ? "#121A72" : "white",
+                borderColor: "grey",
+                padding: 7,
+                width: 200,
+                borderRadius: 7,
+                borderStyle: "dashed",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  color: selected === "Hippocrates hall" ? "white" : "grey",
+                }}
+              >
+                Hippocrates hall
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ flexDirection: "row", marginTop: 7 }}>
+          <TouchableOpacity
+            onPress={() => {
+              setselected("Faraday hall");
+            }}
+          >
+            <View
+              onPress={() => {}}
+              style={{
+                borderWidth: selected === "Faraday hall" ? 0 : 1,
+                backgroundColor:
+                  selected === "Faraday hall" ? "#121A72" : "white",
+                borderColor: "grey",
+                marginRight: 5,
+                padding: 7,
+                width: 125,
+                borderRadius: 7,
+                borderStyle: "dashed",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  color: selected === "Faraday hall" ? "white" : "grey",
+                }}
+              >
+                Faraday hall
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setselected("Mini hall - 1");
+            }}
+          >
+            <View
+              style={{
+                borderWidth: selected === "Mini hall - 1" ? 0 : 1,
+                backgroundColor:
+                  selected === "Mini hall - 1" ? "#121A72" : "white",
+                borderColor: "grey",
+                padding: 7,
+                width: 125,
+                borderRadius: 7,
+                borderStyle: "dashed",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  color: selected === "Mini hall - 1" ? "white" : "grey",
+                }}
+              >
+                Mini hall - 1
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
       <View
