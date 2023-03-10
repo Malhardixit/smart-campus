@@ -12,6 +12,7 @@ import IndividualEvent from "./src/Screens/AdminUI/IndividualEvents";
 import ApprovedEvents from "./src/Screens/ApprovedEvents";
 import OrganizerHome from "./src/Screens/OrganizerUI/OrganizerHome";
 import IndividualEventRequirements from "./src/Screens/OrganizerUI/IndividualEventRequirements";
+import Login from "./src/Screens/Login";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,7 +20,7 @@ const Tab = createBottomTabNavigator();
 function BottomTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={{
         tabBarActiveTintColor: "#121A72",
         tabBarStyle: {
@@ -28,6 +29,19 @@ function BottomTabs() {
         headerShown: null,
       }}
     >
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, focused }) =>
+            focused ? (
+              <Ionicons name="home" color={color} size={26} />
+            ) : (
+              <Ionicons name="home-outline" color={color} size={26} />
+            ),
+          headerShown: null,
+        }}
+        name="Login"
+        component={Login}
+      />
       <Tab.Screen
         options={{
           tabBarIcon: ({ color, focused }) =>
