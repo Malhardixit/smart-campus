@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -80,6 +81,11 @@ function Login({ navigation }) {
               stakeholderUi = "Organizer";
             } else if (stakeholder === "organizer@gmail.com") {
               stakeholderUi = "Home";
+            } else {
+              Alert.alert(
+                "Invalid credentials",
+                "Please enter valid credentials"
+              );
             }
             navigation.navigate(stakeholderUi);
           }}
