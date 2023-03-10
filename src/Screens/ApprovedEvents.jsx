@@ -4,13 +4,94 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import axios from "axios";
+import { useState } from "react";
+import { ActivityIndicator } from "react-native-paper";
 
 function IndividualEvent({ navigation, route }) {
-  const { dayDateTime, eventName, photo } = route.params;
+  const { startDate, endDate, eventName, photo, bookingId } = route.params;
+
+  const [photoUrl, setPhotoUrl] = useState(
+    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+  );
+
+  const [caption, setCaption] = useState("Hi my first post");
+  const [mail, setMail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isMailLoading, setIsMailLoading] = useState(false);
+
+  console.log(isLoading);
+
+  const handleImage = () => {
+    setIsLoading(true);
+    const body = {
+      photoUrl: photoUrl,
+      caption: caption,
+    };
+
+    axios
+      .post(
+        "https://smartcampus-production.up.railway.app/uploadOnSocialMedia",
+        body
+      )
+      .then((res) => {
+        console.log(res.data);
+        ToastAndroid.showWithGravity(
+          "Image Uploaded",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastAndroid.showWithGravity(
+          "Error Occured",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+        setIsLoading(false);
+      });
+  };
+
+  const handleMail = () => {
+    setIsMailLoading(true);
+    const body = {
+      bookingId: bookingId,
+      mailContent: mail,
+    };
+
+    console.log(body);
+
+    axios
+      .post(
+        "https://smartcampus-production.up.railway.app/alertParticipants",
+        body
+      )
+      .then((res) => {
+        console.log(res.data);
+        ToastAndroid.showWithGravity(
+          "Mail Sent",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+        setIsMailLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastAndroid.showWithGravity(
+          "Error Occured",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+        setIsMailLoading(false);
+      });
+  };
 
   return (
     <ScrollView>
@@ -24,7 +105,7 @@ function IndividualEvent({ navigation, route }) {
         <Text style={styles.eventName}>{eventName}</Text>
         <Text style={styles.details}>
           <Text style={styles.detailsHeading}>Date : </Text>
-          {dayDateTime || "- NA - "}
+          {startDate || "- NA - "} - {endDate || "- NA - "}
         </Text>
         <View
           style={{
@@ -48,6 +129,8 @@ function IndividualEvent({ navigation, route }) {
               padding: 5,
             }}
             placeholder="Poster URL"
+            value={photoUrl}
+            onChangeText={(text) => setPhotoUrl(text)}
           ></TextInput>
         </View>
         <View
@@ -62,7 +145,7 @@ function IndividualEvent({ navigation, route }) {
             paddingVertical: 5,
           }}
         >
-          <Ionicons name="mail-outline" size={26} color="grey" />
+          <Ionicons name="pencil" size={26} color="grey" />
           <TextInput
             style={{
               flex: 1,
@@ -71,9 +154,12 @@ function IndividualEvent({ navigation, route }) {
               height: 45,
               padding: 5,
             }}
-            placeholder="Mail Id"
+            placeholder="Caption for the image"
+            value={caption}
+            onChangeText={(text) => setCaption(text)}
           ></TextInput>
         </View>
+
         <View
           style={{
             borderWidth: 1,
@@ -95,6 +181,8 @@ function IndividualEvent({ navigation, route }) {
               padding: 5,
             }}
             placeholder="Mail content"
+            value={mail}
+            onChangeText={(text) => setMail(text)}
           ></TextInput>
         </View>
       </View>
@@ -105,16 +193,24 @@ function IndividualEvent({ navigation, route }) {
           justifyContent: "space-between",
         }}
       >
-        <TouchableOpacity
-          style={styles.approveButton}
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
-        >
-          <View>
-            <Text style={styles.approveText}>Update</Text>
-          </View>
-        </TouchableOpacity>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#121A72" />
+        ) : (
+          <TouchableOpacity style={styles.approveButton} onPress={handleImage}>
+            <View>
+              <Text style={styles.approveText}>Upload Poster</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+        {isMailLoading ? (
+          <ActivityIndicator size="large" color="#121A72" />
+        ) : (
+          <TouchableOpacity style={styles.approveButton} onPress={handleMail}>
+            <View>
+              <Text style={styles.approveText}>Mail Participants</Text>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
     </ScrollView>
   );

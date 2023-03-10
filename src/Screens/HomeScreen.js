@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,11 +13,14 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Card, Divider } from "react-native-paper";
+import axios from "axios";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const HomeScreen = ({ navigation }) => {
+  const [data, setData] = useState([]);
+  const [upComing, setUpComing] = useState([]);
   const catText = [
     {
       id: 1,
@@ -99,6 +102,30 @@ const HomeScreen = ({ navigation }) => {
       pic,
     });
   };
+
+  useEffect(() => {
+    axios
+      .get("https://smartcampus-production.up.railway.app/approvedEvents")
+      .then((res) => {
+        console.log(res.data.approved);
+        setData(res.data.approved);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("https://smartcampus-production.up.railway.app/upcomingEvents")
+      .then((res) => {
+        console.log(res.data);
+        setUpComing(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -189,14 +216,14 @@ const HomeScreen = ({ navigation }) => {
               }}
             >
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {cardData.map((item) => {
+                {upComing.map((item) => {
                   return (
                     <Card
                       onPress={() =>
                         handleCardChangeById(
-                          item.title,
+                          item.eventName,
                           item.id,
-                          item.date,
+                          item.startDate,
                           item.location,
                           item.photo
                         )
@@ -211,7 +238,7 @@ const HomeScreen = ({ navigation }) => {
                     >
                       <Card.Cover source={{ uri: item.photo }} />
                       <Card.Content>
-                        <Text style={styles.cardTitle}>{item.title}</Text>
+                        <Text style={styles.cardTitle}>{item.eventName}</Text>
                         <View style={{ flexDirection: "row" }}>
                           <Ionicons
                             color="black"
@@ -252,13 +279,13 @@ const HomeScreen = ({ navigation }) => {
             </View>
 
             <ScrollView style={{ flexGrow: 0 }}>
-              {approvedEvents.map((item) => {
+              {data.map((item) => {
                 return (
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("ApprovedEventDetails", item)
                     }
-                    key={item.id}
+                    key={item.bookingId}
                     style={{
                       flexDirection: "row",
                       marginTop: 1,
@@ -275,7 +302,7 @@ const HomeScreen = ({ navigation }) => {
                     />
                     <View style={{ padding: 10 }}>
                       <Text style={{ color: "#6072ff", fontWeight: "bold" }}>
-                        {item.dayDateTime}
+                        {item.startDate} {item.startTime}
                       </Text>
                       <Text
                         style={{
