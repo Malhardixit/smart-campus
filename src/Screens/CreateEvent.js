@@ -342,33 +342,6 @@ const CreateEvent = () => {
               </View>
             </View>
           </TouchableOpacity>
-          {/* <View style={{ padding: 10 }}>
-            <TextInput
-              selectionColor="#121A72"
-              left={
-                <TextInput.Icon
-                  style={{ left: 3, top: 1 }}
-                  icon={"calendar-blank"}
-                  iconColor="grey"
-                  size={25}
-                />
-              }
-              underlineColor="#121A72"
-              activeOutlineColor="#121A72"
-              outlineColor="#E4DFDF"
-              style={{
-                backgroundColor: "white",
-                borderRadius: 12,
-                width: width / 2.2,
-              }}
-              mode="outlined"
-              label="End Date"
-              value={orgOptions.endDate}
-              onChangeText={(text) =>
-                setOrgOptions({ ...orgOptions, endDate: text })
-              }
-            />
-          </View> */}
         </View>
 
         {/* Time */}
@@ -434,7 +407,7 @@ const CreateEvent = () => {
             left={
               <TextInput.Icon
                 style={{ left: 3, top: 1 }}
-                icon={"account"}
+                icon={"map-marker"}
                 iconColor="grey"
                 size={25}
               />
@@ -445,6 +418,29 @@ const CreateEvent = () => {
             style={{ backgroundColor: "white", borderRadius: 12 }}
             mode="outlined"
             label="Target Audience"
+            value={orgOptions.targAud}
+            onChangeText={(text) =>
+              setOrgOptions({ ...orgOptions, targAud: text })
+            }
+          />
+        </View>
+        <View style={{ padding: 10 }}>
+          <TextInput
+            selectionColor="#121A72"
+            left={
+              <TextInput.Icon
+                style={{ left: 3, top: 1 }}
+                icon={"account"}
+                iconColor="grey"
+                size={25}
+              />
+            }
+            underlineColor="#121A72"
+            activeOutlineColor="#121A72"
+            outlineColor="#E4DFDF"
+            style={{ backgroundColor: "white", borderRadius: 12 }}
+            mode="outlined"
+            label="Location"
             value={orgOptions.targAud}
             onChangeText={(text) =>
               setOrgOptions({ ...orgOptions, targAud: text })
