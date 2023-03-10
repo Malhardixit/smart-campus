@@ -133,7 +133,6 @@ const HomeScreen = ({ navigation }) => {
         <ScrollView>
           <View style={styles.mainHeader}>
             <StatusBar style="light" backgroundColor="#4A43EC" />
-
             <View style={styles.header}>
               <Ionicons
                 onPress={() => navigation.openDrawer()}
@@ -142,52 +141,16 @@ const HomeScreen = ({ navigation }) => {
                 size={32}
                 color="white"
               />
-              <Text style={{ color: "white", marginTop: 15 }}>
-                Current Location
-              </Text>
-              <Ionicons
-                style={styles.notiIcon}
-                color="white"
-                size={32}
-                name="notifications-outline"
-              />
-            </View>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: -15,
-              }}
-            >
-              <Text style={{ color: "white" }}>SRM University,Chennai</Text>
-            </View>
-
-            <View style={{ marginTop: 10, flexDirection: "row" }}>
-              <Ionicons
-                style={styles.notiIcon}
-                color="white"
-                size={32}
-                name="search-outline"
-              />
               <Text
-                style={{
-                  marginTop: 10,
-                  color: "grey",
-                  fontWeight: "800",
-                  fontSize: 20,
-                }}
+                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
               >
-                |
+                EventZeo
               </Text>
-              <TextInput
-                style={{
-                  left: 10,
-                  color: "white",
-                  fontSize: 16,
-                }}
-                placeholder="Search..."
-                cursorColor={"white"}
-                placeholderTextColor="#E4E4E4"
+              <Ionicons
+                style={styles.notiIcon}
+                color="white"
+                size={25}
+                name="notifications-outline"
               />
             </View>
           </View>
@@ -330,11 +293,9 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   // 4A43EC
   mainHeader: {
-    margin: "auto",
-    height: 180,
     backgroundColor: "#121A72",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 7,
+    borderBottomRightRadius: 7,
   },
   hamIcon: {
     padding: 10,
@@ -345,6 +306,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     padding: 10,
   },
   categories: {

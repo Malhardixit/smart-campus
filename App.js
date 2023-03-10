@@ -10,6 +10,8 @@ import CreateEvent from "./src/Screens/CreateEvent";
 import AdminHome from "./src/Screens/AdminUI/AdminHome";
 import IndividualEvent from "./src/Screens/AdminUI/IndividualEvents";
 import ApprovedEvents from "./src/Screens/ApprovedEvents";
+import OrganizerHome from "./src/Screens/OrganizerUI/OrganizerHome";
+import IndividualEventRequirements from "./src/Screens/OrganizerUI/IndividualEventRequirements";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,6 +88,20 @@ function BottomTabs() {
         name="AdminHome"
         component={AdminHome}
       />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, focused }) => {
+            return focused ? (
+              <Ionicons name="calendar" color={color} size={26} />
+            ) : (
+              <Ionicons name="calendar-outline" color={color} size={26} />
+            );
+          },
+          tabBarLabel: () => <Text style={{ fontSize: 10 }}>Organizer UI</Text>,
+        }}
+        name="Organizer"
+        component={OrganizerHome}
+      />
     </Tab.Navigator>
   );
 }
@@ -116,6 +132,11 @@ export default function App() {
           <Drawer.Screen
             name="ApprovedEventDetails"
             component={ApprovedEvents}
+            options={{ headerShown: null }}
+          />
+          <Drawer.Screen
+            name="IndividualEventDetailsOrganizer"
+            component={IndividualEventRequirements}
             options={{ headerShown: null }}
           />
         </Drawer.Navigator>
