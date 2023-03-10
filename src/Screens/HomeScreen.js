@@ -179,7 +179,7 @@ const HomeScreen = ({ navigation }) => {
               }}
             >
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {upComing.map((item) => {
+                {cardData.map((item) => {
                   return (
                     <Card
                       onPress={() =>

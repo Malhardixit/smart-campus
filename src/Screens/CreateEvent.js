@@ -226,32 +226,6 @@ const CreateEvent = () => {
                 console.log(item);
               }}
             />
-
-            {/* <TextInput
-              selectionColor="#121A72"
-              left={
-                <TextInput.Icon
-                  style={{ left: 3, top: 1 }}
-                  icon={"shape-outline"}
-                  iconColor="grey"
-                  size={25}
-                />
-              }
-              underlineColor="#121A72"
-              activeOutlineColor="#121A72"
-              outlineColor="#E4DFDF"
-              style={{
-                backgroundColor: "white",
-                borderRadius: 12,
-                width: width / 2.2,
-              }}
-              mode="outlined"
-              label="Event Category"
-              value={orgOptions.eventCat}
-              onChangeText={(text) =>
-                setOrgOptions({ ...orgOptions, eventCat: text })
-              }
-            /> */}
           </View>
         </View>
 
